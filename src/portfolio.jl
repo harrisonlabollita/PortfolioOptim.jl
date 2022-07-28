@@ -1,7 +1,7 @@
 
 abstract type Portfolio end
 
-mutable struct AnnualizedPortfolio <: {Portfolio}
+mutable struct AnnualizedPortfolio <: Portfolio
 	mean_returns::AbstractVector
 	cov_matrix::AbstractVector
 	risk_free_rate::Float64
