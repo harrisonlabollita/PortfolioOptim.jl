@@ -2,5 +2,5 @@ using PortfolioOptim
 using Test
 
 @testset "PortfolioOptim.jl" begin
-    # Write your tests here.
+	include("market_data.jl")
 end
