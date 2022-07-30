@@ -2,15 +2,15 @@
 abstract type Portfolio end
 
 mutable struct AnnualizedPortfolio <: Portfolio
-	mean_returns::AbstractVector
-	cov_matrix::AbstractVector
+	mean_returns::Vector{Float64}
+	cov_matrix::Matrix{Float64}
 	risk_free_rate::Float64
 	freq::Int64
 end
 
 
-@inline df_cor(df::DataFrame) = cor(Matrix(df))
 @inline df_mean(df::DataFrame) =  mean.(eachcol(df))
+@inline df_cor(df::DataFrame) = cor(Matrix(df))
 
 function portfolio_returns(df::DataFrame)
 	data = Matrix(df)
