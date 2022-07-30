@@ -3,13 +3,17 @@ using PortfolioOptim
 using DataFrames
 
 @testset "Portfolio" begin
-	tickers = ["TSLA", "GOOG", "F"]
-	portfolio = build_portfolio(tickers, "2022-01-01", "2022-02-01")
-	annualized_port = AnnualizedPortfolio(portfolio)
+	ref = Dict{String,Float64}( "exp_returns" => 0.8286971840585787,
+							    "volatility" => 15.29619599921221,
+								"sharpe"     => 0.05352292714481061
+								)
 
-	ref_ann_port = Dict("means" => Vector{Float64}([22.26289463043213,136.04272422790527,1010.1684967041016]),
-						"cov"   => Matrix{Float64}([[1.0 0.746172 0.740682]; [0.746172 1.0 0.88404]; [ 0.740682 0.88404 1.0]])
-						)
-	@test sum(abs.(ref_ann_port["means"] .- annualized_port.mean_returns)) < 1e-6
-	@test all(abs.(annualized_port.cov_matrix .- ref_ann_port["cov"]) .< 1e-5) == true
+	tickers = ["TSLA", "GOOG", "F"]
+	portfolio = build_portfolio(tickers, "2020-01-01", "2022-01-01")
+	weights = ones(length(tickers)) ./ length(tickers)
+
+	annualized_port = AnnualizedPortfolio(portfolio, weights)
+	@test (annualized_port.expected_returns - ref["exp_returns"]) < 1e-5
+	@test (annualized_port.volatility - ref["volatility"]) < 1e-5
+	@test (annualized_port.sharpe - ref["sharpe"]) < 1e-5
 end
