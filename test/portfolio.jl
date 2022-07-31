@@ -1,6 +1,5 @@
 using Test
 using PortfolioOptim
-using DataFrames
 
 @testset "Portfolio" begin
 	ref = Dict{String,Float64}( "exp_returns" => 0.8286971840585787,
@@ -10,13 +9,12 @@ using DataFrames
 
 	tickers = ["TSLA", "GOOG", "F"]
 	portfolio = build_portfolio(tickers, "2020-01-01", "2022-01-01")
-	ann_port = AnnualizedPortfolio(portfolio)
 
 	weights = ones(length(tickers)) ./ length(tickers)
 
-	ann_port_quant  = AnnualizedPortfolioQuant(weights,
-											   ann_port.mean_returns,
-											   ann_port.cov_matrix
+	ann_port_quant  = AnnualizedPortfolioQuantities(weights,
+											   portfolio.mean_returns,
+											   portfolio.cov_matrix
 											   )
 
 	@test (ann_port_quant.expected_returns - ref["exp_returns"]) < 1e-5

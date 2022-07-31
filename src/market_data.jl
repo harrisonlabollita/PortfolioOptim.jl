@@ -1,4 +1,18 @@
-function ticker_data(ticker::String, from::String, to::String)
+abstract type StockData end
+
+struct Stock <: StockData
+	ticker::String
+	volume::Vector
+	high::Vector
+	open::Vector
+	low::Vector
+	close::Vector
+	adjclose::Vector
+	start_date::String
+	stop_date::String
+end
+
+function Stock(ticker::String, from::String, to::String)::StockData
 	from = string(Integer(datetime2unix(DateTime(from * "T12:00:00"))))
 	to   = string(Integer(datetime2unix(DateTime(to * "T12:00:00"))))
 
@@ -6,16 +20,12 @@ function ticker_data(ticker::String, from::String, to::String)
 
 	response = HTTP.get(url, cookies = true)
 	body = JSON.parse(String(response.body))["chart"]["result"][1]
-	values = body["indicators"]["quote"][1]
+	info = body["indicators"]["quote"][1]
 
-	x = Dict( "Ticker" => ticker, 
-			  "Adjusted" => body["indicators"]["adjclose"][1]["adjclose"])
-	return x
+	return Stock(ticker, info["volume"], info["high"], 
+				 info["open"], info["low"], info["close"], 
+				 body["indicators"]["adjclose"][1]["adjclose"],
+				 from, to
+				)
 end
 
-function build_portfolio(tickers::Array{String}, from::String, to::String)
-	get_ticker_data(x) = ticker_data(x, from, to)
-	data = get_ticker_data.(tickers)
-	df = DataFrame(Dict(item["Ticker"] => item["Adjusted"] for item in data))
-	return df
-end

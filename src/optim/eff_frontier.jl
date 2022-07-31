@@ -5,7 +5,7 @@ function neg_sharpe_ratio(weights::Vector{Float64},
 						  freq::Int64
 						  )
 
-	ann_quant = AnnualizedPortfolioQuant(weights, 
+	ann_quant = AnnualizedPortfolioQuantities(weights, 
 										mean_returns,
 										cov_matrix;
 										risk_free_rate=risk_free_rate,
@@ -20,7 +20,7 @@ function volatility(weights::Vector{Float64},
 				    freq::Int64
 					)
 
-	ann_quant = AnnualizedPortfolioQuant(weights, 
+	ann_quant = AnnualizedPortfolioQuantities(weights, 
 										mean_returns,
 										cov_matrix;
 										risk_free_rate=risk_free_rate,
@@ -35,14 +35,14 @@ function returns(weights::Vector,
 			     risk_free_rate::Float64,
 			     freq::Int64)
 
-	ann_quant = AnnualizedPortfolioQuant(weights, 
+	ann_quant = AnnualizedPortfolioQuantities(weights, 
 										mean_returns,
 										cov_matrix)
 
 	return ann_quant.expected_returns
 end
 
-function EfficientFrontier(portfolio::Portfolio,	# here we pass an annualized portfolio
+function EfficientFrontier(portfolio::PortfolioData,	
 						   min_function::Function)
 	sco = pyimport("scipy.optimize") # TODO: switch to Optim.jl?
 
@@ -64,5 +64,3 @@ function EfficientFrontier(portfolio::Portfolio,	# here we pass an annualized po
 						  constraints=constraints)
 	return result
 end
-
-		                   
