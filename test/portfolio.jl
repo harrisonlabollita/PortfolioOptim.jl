@@ -10,10 +10,16 @@ using DataFrames
 
 	tickers = ["TSLA", "GOOG", "F"]
 	portfolio = build_portfolio(tickers, "2020-01-01", "2022-01-01")
+	ann_port = AnnualizedPortfolio(portfolio)
+
 	weights = ones(length(tickers)) ./ length(tickers)
 
-	annualized_port = AnnualizedPortfolio(portfolio, weights)
-	@test (annualized_port.expected_returns - ref["exp_returns"]) < 1e-5
-	@test (annualized_port.volatility - ref["volatility"]) < 1e-5
-	@test (annualized_port.sharpe - ref["sharpe"]) < 1e-5
+	ann_port_quant  = AnnualizedPortfolioQuant(weights,
+											   ann_port.mean_returns,
+											   ann_port.cov_matrix
+											   )
+
+	@test (ann_port_quant.expected_returns - ref["exp_returns"]) < 1e-5
+	@test (ann_port_quant.volatility - ref["volatility"]) < 1e-5
+	@test (ann_port_quant.sharpe - ref["sharpe"]) < 1e-5
 end
