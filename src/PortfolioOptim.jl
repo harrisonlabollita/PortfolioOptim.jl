@@ -14,8 +14,10 @@ export AnnualizedPortfolioQuantities
 include("portfolio.jl")
 
 export EfficientFrontier
+export EfficientOptimizer
+export EfficientReturns
 export neg_sharpe_ratio
-export volatility
-export returns
+export portfolio_volatility
+export portfolio_returns
 include("optim/eff_frontier.jl")
 end

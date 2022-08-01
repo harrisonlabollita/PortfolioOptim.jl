@@ -2,9 +2,9 @@ using Test
 using PortfolioOptim
 
 @testset "Portfolio" begin
-	ref = Dict{String,Float64}( "exp_returns" => 0.8286971840585787,
-							    "volatility" => 15.29619599921221,
-								"sharpe"     => 0.05352292714481061
+	ref = Dict{String,Float64}( "exp_returns" => 0.8286972034068468,
+							    "volatility" =>  0.39826357026487336,
+								"sharpe"     =>  1.9552308108144518
 								)
 
 	tickers = ["TSLA", "GOOG", "F"]
@@ -14,10 +14,12 @@ using PortfolioOptim
 
 	ann_port_quant  = AnnualizedPortfolioQuantities(weights,
 											   portfolio.mean_returns,
-											   portfolio.cov_matrix
+											   portfolio.cov_matrix,
+											   portfolio.risk_free_rate,
+											   portfolio.freq
 											   )
 
-	@test (ann_port_quant.expected_returns - ref["exp_returns"]) < 1e-5
-	@test (ann_port_quant.volatility - ref["volatility"]) < 1e-5
-	@test (ann_port_quant.sharpe - ref["sharpe"]) < 1e-5
+	@test (ann_port_quant.expected_returns - ref["exp_returns"]) < 1e-8
+	@test (ann_port_quant.volatility - ref["volatility"]) < 1e-8
+	@test (ann_port_quant.sharpe - ref["sharpe"]) < 1e-8
 end
