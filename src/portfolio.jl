@@ -1,7 +1,7 @@
 
 abstract type PortfolioData end
 
-mutable struct Portfolio <: PortfolioData
+struct Portfolio <: PortfolioData
 	stocks::Dict{String, StockData}
 	stock_data::Matrix{Float64}
 	daily_returns::Matrix{Union{Missing, Float64}}
@@ -11,6 +11,11 @@ mutable struct Portfolio <: PortfolioData
 	freq::Int64
 	start_date::String
 	stop_date::String
+end
+
+function Base.show(io::IO, portfolio::Portfolio)
+	println(io, "Portfolio starts on $(portfolio.start_date) and ends on $(portfolio.stop_date)")
+	println(io, "Total of $(length(keys(portfolio.stocks))) stocks: $(keys(portfolio.stocks))")
 end
 
 function pct_change(input::AbstractVector)::Vector{Union{Missing, Float64}}
@@ -61,7 +66,7 @@ function AnnualizedPortfolioQuantities(weights::Vector{Float64},
 end
 
 function AnnualizedPortfolioQuantities(weights::Vector{Float64},
-		                               portfolio::PortfolioData)
+		                               portfolio::Portfolio)
 	mean_returns = portfolio.mean_returns
 	cov_matrix   = portfolio.cov_matrix
 	freq          = portfolio.freq

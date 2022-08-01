@@ -1,7 +1,3 @@
-abstract type PortfolioOptimResults end
-
-
-
 # minimization functions
 function neg_sharpe_ratio(weights::Vector{Float64}, 
 						  mean_returns::Vector{Float64},
@@ -53,7 +49,7 @@ end
 
 # generic optimizer
 
-function EfficientOptimizer(portfolio::PortfolioData,	
+function EfficientOptimizer(portfolio::Portfolio,
 						   min_function::Function)
 
 	mean_returns = portfolio.mean_returns
@@ -76,7 +72,7 @@ function EfficientOptimizer(portfolio::PortfolioData,
 end
 
 
-function EfficientReturns(portfolio::PortfolioData, target::Float64)
+function EfficientReturns(portfolio::Portfolio, target::Float64)
 
 
 	mean_returns = portfolio.mean_returns
@@ -105,17 +101,29 @@ end
 
 
 
-
 struct EfficientFrontier <: PortfolioOptimResults
-	original_portfolio::PortfolioData
+	portfolio::Portfolio
 	returns::Vector{Float64}
 	volatility::Vector{Float64}
 	sharpe_ratio::Vector{Float64}
 	weights::Vector{Vector{Float64}}
 end
 
+function Base.show(io::IO, results::EfficientFrontier)
+	println(io, "Summary of EfficientFrontier Results:")
+	println(io, "Explored $(length(results.returns)) returns")
+	max_sharpe = argmax(results.sharpe_ratio)
+	min_vol = argmin(results.volatility)
+	println(io, "Maximum Sharpe Ratio: $(results.sharpe_ratio[max_sharpe])")
+	println(io, "              Return: $(results.returns[max_sharpe])")
+	println(io, "          Volatility: $(results.volatility[max_sharpe])")
+	println(io, " Mininmum Volatility: $(results.volatility[min_vol])")
+	println(io, "              Return: $(results.returns[min_vol])")
+	println(io, "        Sharpe Ratio: $(results.sharpe_ratio[min_vol])")
+end
 
-function EfficientFrontier(portfolio::PortfolioData, targets::Vector{Float64})
+
+function EfficientFrontier(portfolio::Portfolio, targets::Vector{Float64})
 	eff_frontier = Dict("returns" => targets, "volatility" => [], 
 						"sharpe" => [], "weights" => [])
 	for target in targets
