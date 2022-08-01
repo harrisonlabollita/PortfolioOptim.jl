@@ -21,13 +21,5 @@ jobs:
         - uses: julia-actions/setup-julia@v1
           with:
             version: ${{matrix.version }}
-        - name: Install Conda dependencies
-          shell: bash
-          run: |
-            julia -e '
-              using Pkg; Pkg.add("Conda"); using Conda
-              pkgs  = ["scipy"]
-              Conda.add(pkgs; channel="conda-forge")
-              '
         - uses: julia-actions/julia-buildpkg@v1
         - uses: julia-actions/julia-runtest@v1

@@ -1,6 +1,7 @@
 module PortfolioOptim
 
 using PyCall
+using SciPy
 using Dates
 using HTTP
 using JSON

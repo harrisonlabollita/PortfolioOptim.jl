@@ -55,7 +55,6 @@ end
 
 function EfficientOptimizer(portfolio::PortfolioData,	
 						   min_function::Function)
-	sco = pyimport("scipy.optimize") # TODO: switch to Optim.jl?
 
 	mean_returns = portfolio.mean_returns
 	cov_matrix   = portfolio.cov_matrix
@@ -68,7 +67,7 @@ function EfficientOptimizer(portfolio::PortfolioData,
 	constraints = Dict("type" => "eq", "fun" => x -> sum(x) - 1)
 	
 	F(x) = min_function(x, mean_returns, cov_matrix, risk_free_rate, freq)
-	result = sco.minimize(F,
+	result = optimize.minimize(F,
 						  x0=init_weights,
 						  method="SLSQP",
 						  bounds=bounds,
@@ -79,7 +78,6 @@ end
 
 function EfficientReturns(portfolio::PortfolioData, target::Float64)
 
-	sco = pyimport("scipy.optimize") # TODO: switch to Optim.jl?
 
 	mean_returns = portfolio.mean_returns
 	cov_matrix   = portfolio.cov_matrix
@@ -96,7 +94,7 @@ function EfficientReturns(portfolio::PortfolioData, target::Float64)
 				   Dict("type" => "eq", "fun" => x -> R(x) - target) 
 				   )
 	
-	result = sco.minimize(F,
+	result = optimize.minimize(F,
 						  x0=init_weights,
 						  method="SLSQP",
 						  bounds=bounds,

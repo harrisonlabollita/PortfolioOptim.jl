@@ -19,7 +19,7 @@ using PortfolioOptim
 											   portfolio.freq
 											   )
 
-	@test (ann_port_quant.expected_returns - ref["exp_returns"]) < 1e-8
-	@test (ann_port_quant.volatility - ref["volatility"]) < 1e-8
-	@test (ann_port_quant.sharpe - ref["sharpe"]) < 1e-8
+	@test (ann_port_quant.expected_returns - ref["exp_returns"]) < 1e-6
+	@test (ann_port_quant.volatility - ref["volatility"]) < 1e-6
+	@test (ann_port_quant.sharpe - ref["sharpe"]) < 1e-6
 end
