@@ -6,6 +6,9 @@ end
 struct MonteCarloResults <: PortfolioOptimResults
 	portfolio::Portfolio
 	raw_results::Vector{MonteCarloRun}
+	volatility::Vector{Float64}
+	returns::Vector{Float64}
+	sharpe::Vector{Float64}
 	optim_sharpe_weights::Vector{Float64}
 	optim_vol_weights::Vector{Float64}
 end
@@ -81,5 +84,12 @@ function MonteCarloOptimizer(portfolio::Portfolio; func::Function=rand,
 	optim_sharpe_idx = argmax_sharpe(results)
 	optim_vol_weights = results[optim_vol_idx].weights
 	optim_sharpe_weights = results[optim_sharpe_idx].weights
-	return MonteCarloResults(portfolio, results, optim_sharpe_weights, optim_vol_weights)
+	exp_returns = [x.metrics.expected_returns for x in results]
+	volatility = [x.metrics.volatility for x in results]
+	sharpe = [x.metrics.sharpe for x in results]
+
+	return MonteCarloResults(portfolio, results, volatility, exp_returns,
+							 sharpe, optim_sharpe_weights, 
+							 optim_vol_weights
+							 )
 end
