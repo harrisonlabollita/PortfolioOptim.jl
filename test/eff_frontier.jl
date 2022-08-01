@@ -38,7 +38,7 @@ approx_close(vec1, vec2) = sum(abs.(vec1 .- vec2))
 													)
 		eff_results = EfficientFrontier(portfolio, targets)
 		@test approx_close(eff_results.sharpe_ratio, ref_results["sharpe"]) < 1e-5
-		@test approx-close(eff_results.volatility ≈ ref_results["volatility"]) < 1e-5
+		@test approx_close(eff_results.volatility, ref_results["volatility"]) < 1e-5
 	end
 
 end
