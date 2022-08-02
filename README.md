@@ -2,6 +2,17 @@
 
 A Julia package for the optimization of financial portfolios.
 
+<div align="center">
+
+![tests](https://github.com/harrisonlabollita/PortfolioOptim.jl/actions/workflows/ci.yml/badge.svg)
+![issues](https://img.shields.io/github/issues/harrisonlabollita/PortfolioOptim.jl)
+![forks](https://img.shields.io/github/forks/harrisonlabollita/PortfolioOptim.jl)
+![stars](https://img.shields.io/github/stars/harrisonlabollita/PortfolioOptim.jl)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+![license](https://img.shields.io/github/license/harrisonlabollita/PortfolioOptim.jl)
+	
+</div>
+
 ## Installation
 
 ```julia
@@ -30,12 +41,14 @@ Here, we visualize the results from our portfolio optimization,
 </a>
 </p>
 
-## TODO
+
+## Contributing
+
+Pull requests and issues are welcome! Some of my todos are
+
+**TODO**
+
 - [ ] build analysis and visualization tools 
 - [ ] build documentation
 - [ ] build logo
 - [ ] register on GeneralRegistry
-
-## Contributing
-
-Pull requests and issues are welcome!
