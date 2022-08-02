@@ -22,9 +22,12 @@ EF_results = EfficientFrontier(portfolio, target_returns)
 MC_results = MonteCarloOptimizer(portfolio)
 ```
 
-We can then visualize the results, 
-<p align="center"
-<img width="300" src="doc/examples/portfoliooptim_example.png"/>
+Here, we visualize the results from our portfolio optimization,
+
+<p align="center">
+<a href="https://github.com/harrisonlabollita/doc/examples/">
+<img width="500" src="doc/examples/portfoliooptim_example.png" alt="portfolio_optim_example"/>
+</a>
 </p>
 
 ## TODO
