@@ -1,7 +1,4 @@
 # PortfolioOptim.jl
-
-A Julia package for the optimization of financial portfolios.
-
 <div align="center">
 
 ![tests](https://github.com/harrisonlabollita/PortfolioOptim.jl/actions/workflows/ci.yml/badge.svg)
@@ -12,6 +9,8 @@ A Julia package for the optimization of financial portfolios.
 ![license](https://img.shields.io/github/license/harrisonlabollita/PortfolioOptim.jl)
 	
 </div>
+
+A Julia package for the optimization of financial portfolios.
 
 ## Installation
 
