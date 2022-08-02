@@ -17,7 +17,7 @@ using PortfolioOptim
 
 tickers = ["GOOG", "DIS", "FB", "AMZN", "AAPL", "TSLA"]
 portfolio = build_portfolio(tickers, "2020-01-01", "2022-01-01")
-target_returns = collect(0.01:0.01:0.8)
+target_returns = collect(0.1:0.01:0.8)
 EF_results = EfficientFrontier(portfolio, target_returns)
 MC_results = MonteCarloOptimizer(portfolio)
 ```
