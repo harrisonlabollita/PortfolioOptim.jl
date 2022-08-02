@@ -5,7 +5,7 @@ A Julia package for the optimization of financial portfolios.
 ## Installation
 
 ```julia
-using Pkg; Pkg.add("https://github.com/harrisonlabollita/PortfolioOptim.jl.git")
+using Pkg; Pkg.add(url="https://github.com/harrisonlabollita/PortfolioOptim.jl.git")
 ```
 
 ## Example
@@ -21,6 +21,11 @@ target_returns = collect(0.1:0.01:0.8)
 EF_results = EfficientFrontier(portfolio, target_returns)
 MC_results = MonteCarloOptimizer(portfolio)
 ```
+
+We can then visualize the results, 
+<p align="center"
+<img width="300" src="doc/examples/portfoliooptim_example.png"/>
+</p>
 
 ## TODO
 - [ ] build analysis and visualization tools 
