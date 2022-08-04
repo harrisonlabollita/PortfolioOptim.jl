@@ -93,3 +93,18 @@ function MonteCarloOptimizer(portfolio::Portfolio; func::Function=rand,
 							 optim_vol_weights
 							 )
 end
+
+function plot_mc(results::MonteCarloResults; kwargs...)
+	vol    = results.volatility
+	ret	   = results.returns
+	sharpe = results.sharpe
+	p = scatter(vol, ret, marker_z = sharpe; kwargs...)
+	return p
+end
+
+function plot_mc!(results::MonteCarloResults; kwargs...)
+	vol    = results.volatility
+	ret	   = results.returns
+	sharpe = results.sharpe
+	scatter!(vol, ret, marker_z = sharpe; kwargs...)
+end

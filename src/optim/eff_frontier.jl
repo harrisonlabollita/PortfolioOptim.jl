@@ -140,3 +140,17 @@ function EfficientFrontier(portfolio::Portfolio, targets::Vector{Float64})
 	return EfficientFrontier(portfolio, eff_frontier["returns"], eff_frontier["volatility"],
 							eff_frontier["sharpe"], eff_frontier["weights"])
 end
+
+
+function plot_eff(results::EfficientFrontier; kwargs...)
+	vol = results.volatility
+	ret = results.returns
+	p = plot(vol, ret; kwargs...) 
+	return p
+end
+
+function plot_eff!(results::EfficientFrontier; kwargs...)
+	vol = results.volatility
+	ret = results.returns
+	plot!(vol, ret; kwargs...) 
+end

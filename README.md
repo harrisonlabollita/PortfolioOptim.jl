@@ -46,8 +46,5 @@ Here, we visualize the results from our portfolio optimization,
 Pull requests and issues are welcome! Some of my todos are
 
 **TODO**
-
-- [ ] build analysis and visualization tools 
 - [ ] build documentation
-- [ ] build logo
 - [ ] register on GeneralRegistry
